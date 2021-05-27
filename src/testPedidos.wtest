@@ -1,0 +1,19 @@
+import rodados.*
+import pedidos.*
+
+describe "pedido" {
+	
+	const cachito = new ChevroletCorsa(color = "rojo")
+	const pedido1 = new Pedido(distanciaARecorrer = 960, tiempoMax= 8, cantPasajeros = 4, coloresIncompatibles = ["azul", "negro"] )
+	const pedido2 = new Pedido(distanciaARecorrer = 960, tiempoMax= 8, cantPasajeros = 4, coloresIncompatibles = ["azul", "negro", "rojo"] )
+	const pedido3 = new Pedido(distanciaARecorrer = 960, tiempoMax= 8, cantPasajeros = 6, coloresIncompatibles = ["azul", "negro"] )	
+	const pedido4 = new Pedido(distanciaARecorrer = 960, tiempoMax= 6, cantPasajeros = 4, coloresIncompatibles = ["azul", "negro"] )
+	
+	test "cachito sastiface pedido" {
+		assert.that(pedido1.autoSastifacePedido(cachito))
+		assert.notThat(pedido2.autoSastifacePedido(cachito))
+		assert.notThat(pedido3.autoSastifacePedido(cachito))
+		assert.notThat(pedido4.autoSastifacePedido(cachito))
+	}
+	
+}
