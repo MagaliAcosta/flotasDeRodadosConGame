@@ -2,12 +2,43 @@ import wollok.game.*
 
 class ChevroletCorsa {
 	var property color
+	var property image 
+	var property position
+	const property posiciones = [self.position()]
+	
+	method image() = if (color == "azul") "autitoazul.png"  else if (color == "negro") "autitonegro.png" else "autitorojo.png"
 	
 	method capacidad() = 4
 	
 	method velocidadMax() = 150
 	
 	method peso() = 1300
+	
+	method moverALaDerecha() {
+		self.position(self.position().right(1))
+		posiciones.add(self.position())
+	}
+	
+	method moverALaIzquierda() {
+		self.position(self.position().left(1))
+		posiciones.add(self.position())
+	}
+	
+	method moverArriba() {
+		self.position(self.position().up(1))
+		posiciones.add(self.position())
+	}
+	
+	method moverAbajo() {
+		self.position(self.position().down(1))
+		posiciones.add(self.position())
+	}
+	
+	method pasoPor(posicion) = posiciones.any({ p => p == posicion })
+	
+	method pasoPorFila(numero) = posiciones.any({ p => p.x() == numero })
+	
+	method recorrioFilas(listaDeNumeros) = listaDeNumeros.all({ numero => self.pasoPorFila(numero) })
 	
 }
 

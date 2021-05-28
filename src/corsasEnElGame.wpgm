@@ -1,7 +1,64 @@
 import wollok.game.*
+import rodados.*
 
 program corsasEnElGame {
-	// hacer las inicializaciones necesarias 
+	const corsa  = new ChevroletCorsa(color = "negro", position = game.at(4,7))
+	const corsa2 = new ChevroletCorsa(color = "azul", position = game.at(3,7))
+	const corsa3 = new ChevroletCorsa(color = "rojo", position = game.at(2,7))
+	var property todosActivado = false
+	var property autoActivo = corsa
+
+	
+	game.title("corsa")
+	
+	game.height(15)
+	game.width(15)
+	
+	game.addVisual(corsa)
+	game.addVisual(corsa2)
+	game.addVisual(corsa3)
+	
+	keyboard.right().onPressDo{ 
+		if (not todosActivado) autoActivo.moverALaDerecha() 
+		else game.allVisuals().forEach({ auto => auto.moverALaDerecha() })
+	}
+	
+	keyboard.left().onPressDo{
+		if (not todosActivado) autoActivo.moverALaIzquierda() 
+		else game.allVisuals().forEach({ auto => auto.moverALaIzquierda() })
+	}
+	
+	keyboard.up().onPressDo{ 
+		if (not todosActivado) autoActivo.moverArriba() 
+		else game.allVisuals().forEach({ auto => auto.moverArriba() })
+	}
+	
+	keyboard.down().onPressDo{
+		if (not todosActivado) autoActivo.moverAbajo() 
+		else game.allVisuals().forEach({ auto => auto.moverAbajo() })
+	}
+	
+	keyboard.a().onPressDo{ 
+		if (not todosActivado) autoActivo.color("azul")
+		else game.allVisuals().forEach({ auto => auto.color("azul") })
+	}
+	
+	keyboard.r().onPressDo{ 
+		if (not todosActivado) autoActivo.color("rojo")
+		else game.allVisuals().forEach({ auto => auto.color("rojo") })
+	}
+	
+	keyboard.n().onPressDo{ 
+		if (not todosActivado) autoActivo.color("negro")
+		else game.allVisuals().forEach({ auto => auto.color("negro") })
+	}
+	
+	keyboard.t().onPressDo{ todosActivado = not todosActivado }
+	
+	keyboard.num1().onPressDo{ autoActivo = corsa }
+	keyboard.num2().onPressDo{ autoActivo = corsa2 }
+	keyboard.num3().onPressDo{ autoActivo = corsa3 }
+	
 	
 	game.start()
 }
